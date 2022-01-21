@@ -1,0 +1,19 @@
+<ChainOfCommand>
+  <ExtensionClass Name="CAIClass_RunBaseBatch_Extension" ExtensionTarget="RunBaseBatch" ExtensionTargetType="ClassTypeId">
+    <Method ActualExtensionTarget="RunBaseBatch" IsStatic="False" CocMethodDelegateElementOwner="Runbase" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">$augmentedProxy$run</Method>
+  </ExtensionClass>
+  <ExtensionClass Name="CAIClass_SysOperationController_Extension" ExtensionTarget="SysOperationController" ExtensionTargetType="ClassTypeId">
+    <Method ActualExtensionTarget="SysOperationController" IsStatic="False" CocMethodDelegateElementOwner="SysOperationController" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">runOperation</Method>
+  </ExtensionClass>
+  <ExtensionClass Name="CAIClass_RetailRealTimeServiceWrapper_Extension" ExtensionTarget="RetailRealTimeServiceWrapper" ExtensionTargetType="ClassTypeId">
+    <Method ActualExtensionTarget="RetailRealTimeServiceWrapper" IsStatic="True" CocMethodDelegateElementOwner="" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">MakeStaticCall</Method>
+  </ExtensionClass>
+  <ExtensionClass Name="CAIClass_Info_Extension" ExtensionTarget="Info" ExtensionTargetType="ClassTypeId">
+    <Method ActualExtensionTarget="Info" IsStatic="False" CocMethodDelegateElementOwner="Info" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">add</Method>
+    <Method ActualExtensionTarget="Info" IsStatic="False" CocMethodDelegateElementOwner="Info" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">addException</Method>
+  </ExtensionClass>
+  <ExtensionClass Name="CAIClass_FormRun_Extension" ExtensionTarget="FormRun" ExtensionTargetType="ClassTypeId">
+    <Method ActualExtensionTarget="FormRun" IsStatic="False" CocMethodDelegateElementOwner="FormRun" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">init</Method>
+    <Method ActualExtensionTarget="FormRun" IsStatic="False" CocMethodDelegateElementOwner="FormRun" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">run</Method>
+  </ExtensionClass>
+</ChainOfCommand>

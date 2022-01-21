@@ -1,0 +1,3 @@
+﻿CaptureCustomEvents=Capture custom events
+ ;Label file comment - see above label
+CaptureCustomEventsHelp=Enables capture of various kinds of system activity: Infologs with severity information, executions of forms; runtimes of form initializations, commerce RTS calls, and batch jobs. Also enables the capture of custom events in x++ code using CAITelemetry::trace(...).

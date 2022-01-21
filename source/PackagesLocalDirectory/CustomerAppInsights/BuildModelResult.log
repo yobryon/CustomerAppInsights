@@ -1,0 +1,6 @@
+==================================
+ExternalReference Warning: dynamics://Reference/Azure.Core: Assembly 'Azure.Core, Version=1.15.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8' failed to load because it was not found.
+ExternalReference Warning: dynamics://Reference/Azure.Storage.Blobs: Assembly 'Azure.Core, Version=1.15.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8' failed to load because it was not found.
+==================================
+Errors: 0
+Warnings: 2

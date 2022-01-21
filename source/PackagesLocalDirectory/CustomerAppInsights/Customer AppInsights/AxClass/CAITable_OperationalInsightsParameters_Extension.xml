@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>CAITable_OperationalInsightsParameters_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(tableStr(OperationalInsightsParameters))]
+public final class CAITable_OperationalInsightsParameters_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>caifind</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Find method for table. This can be removed/refactored if MSFT ever adds a find method to the table itself.
+    /// </summary>
+    /// <param name = "_forUpdate"></param>
+    /// <returns></returns>
+    public static OperationalInsightsParameters caifind(boolean _forUpdate = false)
+    {
+        OperationalInsightsParameters operationalInsightsParameters;
+        operationalInsightsParameters.selectForUpdate(_forUpdate);
+        select firstonly operationalInsightsParameters;
+        return operationalInsightsParameters;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

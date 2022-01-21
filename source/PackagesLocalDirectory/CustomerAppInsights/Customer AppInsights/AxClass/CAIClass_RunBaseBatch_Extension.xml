@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>CAIClass_RunBaseBatch_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(classStr(RunBaseBatch))]
+final class CAIClass_RunBaseBatch_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>run</Name>
+				<Source><![CDATA[
+    public void run()
+    {
+        using(var t = CAITelemetry::newRequest(this.caption(), classStr(RunBaseBatch)).StartOperation(strFmt('%1.%2',classId2Name(classIdGet(this)), "run")))
+        {
+            next run();
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

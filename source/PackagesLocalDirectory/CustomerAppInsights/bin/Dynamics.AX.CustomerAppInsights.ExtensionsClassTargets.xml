@@ -1,0 +1,8 @@
+<ExtensionClasses>
+  <ExtensionClass ExtensionClassName="CAIClass_RunBaseBatch_Extension" ExtensionTargetName="RunBaseBatch" ExtensionTargetTypeId="ClassTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="CAIClass_SysOperationController_Extension" ExtensionTargetName="SysOperationController" ExtensionTargetTypeId="ClassTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="CAIClass_RetailRealTimeServiceWrapper_Extension" ExtensionTargetName="RetailRealTimeServiceWrapper" ExtensionTargetTypeId="ClassTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="CAITable_OperationalInsightsParameters_Extension" ExtensionTargetName="OperationalInsightsParameters" ExtensionTargetTypeId="TableTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="CAIClass_Info_Extension" ExtensionTargetName="Info" ExtensionTargetTypeId="ClassTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="CAIClass_FormRun_Extension" ExtensionTargetName="FormRun" ExtensionTargetTypeId="ClassTypeId" ExtensionNestedTargetName="" />
+</ExtensionClasses>

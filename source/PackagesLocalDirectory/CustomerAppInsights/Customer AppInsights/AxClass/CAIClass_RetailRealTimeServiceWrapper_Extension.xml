@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>CAIClass_RetailRealTimeServiceWrapper_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(classStr(RetailRealTimeServiceWrapper))]
+final class CAIClass_RetailRealTimeServiceWrapper_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>MakeStaticCall</Name>
+				<Source><![CDATA[
+    public static RetailTransactionServiceResponse MakeStaticCall(str _className, str _staticMethodName, List _params, str _company, str _language)
+    {
+        using(var t = CAITelemetry::newRequest('MakeStaticCall', classStr(RetailRealTimeServiceWrapper)).StartOperation(strFmt('%1.%2',_className, _staticMethodName)))
+        {
+            return next MakeStaticCall(_className, _staticMethodName, _params, _company, _language);
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

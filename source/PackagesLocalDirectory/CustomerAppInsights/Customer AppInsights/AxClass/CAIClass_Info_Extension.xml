@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>CAIClass_Info_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(classStr(Info))]
+final class CAIClass_Info_Extension
+{
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>add</Name>
+				<Source><![CDATA[
+    public Exception add(
+        Exception _exception,
+        str _txt,
+        str _helpUrl,
+        Object _sysInfoAction,
+        boolean buildprefix,
+        str _label)
+    {
+        CAITelemetry::trace(_exception, _txt, classStr(Info));
+        return next add(_exception, _txt, _helpUrl, _sysInfoAction, buildprefix, _label);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>addException</Name>
+				<Source><![CDATA[
+    public Exception addException(str _txt, str _stackTrace)
+    {
+        CAITelemetry::exception(_txt, _stackTrace, CAITelemetry::formatStackTrace(xSession::xppCallStack()), classStr(Info));
+        return next addException(_txt, _stackTrace);
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

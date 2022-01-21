@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>CAIClass_FormRun_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+/// FormRun extension to publish form init and load times as a telemetry Request
+/// </summary>
+[ExtensionOf(classStr(FormRun))]
+final class CAIClass_FormRun_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>init</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// init
+    /// </summary>
+    public void init()
+    {
+        using(var t = CAITelemetry::newRequestForForm(this, this.name()).StartOperation(strFmt('%1.%2',this.args().name(),"init")))
+        {
+            next init();
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>run</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// run
+    /// </summary>
+    public void run()
+    {
+        using(var t = CAITelemetry::newRequestForForm(this, this.name()).StartOperation(strFmt('%1.%2',this.args().name(),"run")))
+        {
+            next run();
+        }
+    }
+
+    // this is not allowed by the compiler
+    //public void wait(boolean _modal)
+    //{
+    //    using(var t = CHTelemetry::newClient().TrackOperation(this.name(), "wait"))
+    //    {
+    //        next wait(_modal);
+    //    }
+    //}
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

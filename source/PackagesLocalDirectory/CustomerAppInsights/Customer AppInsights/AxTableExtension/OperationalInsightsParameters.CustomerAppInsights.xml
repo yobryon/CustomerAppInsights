@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxTableExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>OperationalInsightsParameters.CustomerAppInsights</Name>
+	<FieldGroupExtensions />
+	<FieldGroups />
+	<FieldModifications />
+	<Fields>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>CAICaptureCustomEvents</Name>
+			<ExtendedDataType>NoYesId</ExtendedDataType>
+			<HelpText>@CAI:CaptureCustomEventsHelp</HelpText>
+			<Label>@CAI:CaptureCustomEvents</Label>
+			<EnumType>NoYes</EnumType>
+		</AxTableField>
+	</Fields>
+	<FullTextIndexes />
+	<Indexes />
+	<Mappings />
+	<PropertyModifications />
+	<RelationExtensions />
+	<RelationModifications />
+	<Relations />
+</AxTableExtension>

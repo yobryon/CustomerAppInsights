@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>CAITelemetry</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+using Microsoft.Dynamics.ApplicationPlatform.Environment;
+
+public final class CAITelemetry
+{
+    private static CAITelemetry instance;
+    private CAI.Telemetry.IAppTelemetry appTelemetry;
+
+    //static TelemetryConfiguration gConfiguration; // = Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration::CreateDefault();
+    private RecVersion gParameterRecVersion = 0;
+    private RecVersion gRegistryRecVersion = 0;
+    private static str environmentId = System.Configuration.ConfigurationManager::AppSettings.Get("LCS.EnvironmentId");
+    
+    
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>typeNew</Name>
+				<Source><![CDATA[
+    private static void typeNew()
+    {
+        instance = new CAITelemetry();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>instance</Name>
+				<Source><![CDATA[
+    public static CAITelemetry instance()
+    {
+        return instance;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>appTelemetry</Name>
+				<Source><![CDATA[
+    private static CAI.Telemetry.IAppTelemetry appTelemetry()
+    {
+        return CAITelemetry::instance.appTelemetry;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>new</Name>
+				<Source><![CDATA[
+    private void new()
+    {
+        this.init();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>needsInit</Name>
+				<Source><![CDATA[
+    private boolean needsInit()
+    {
+        OperationalInsightsParameters params = OperationalInsightsParameters::caifind();
+        OperationalInsightsRegistry registry = CAITelemetry::findRegistryEntryForEnvironmentId(CAITelemetry::environmentId);
+        return !gRegistryRecVersion || !gParameterRecVersion || gRegistryRecVersion != registry.RecVersion || gParameterRecVersion != params.RecVersion || appTelemetry == null;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>init</Name>
+				<Source><![CDATA[
+    private void init()
+    {
+        OperationalInsightsParameters params = OperationalInsightsParameters::caifind();
+        OperationalInsightsRegistry registry = CAITelemetry::findRegistryEntryForEnvironmentId(CAITelemetry::environmentId);
+        gParameterRecVersion = params.RecVersion;
+        gRegistryRecVersion = registry.RecVersion;
+
+        appTelemetry = params.CAICaptureCustomEvents ? new CAI.Telemetry.AppTelemetry(registry.InstrumentationKey) as CAI.Telemetry.IAppTelemetry : new CAI.Telemetry.AppTelemetryNoOp() as CAI.Telemetry.IAppTelemetry;
+        appTelemetry.SetContext(curUserId(), strFmt('%1', sessionId()), isRunningOnBatch());
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>newRequest</Name>
+				<Source><![CDATA[
+    public static CAI.Telemetry.TelemetryWrapper newRequest(str caption, str src)
+    {
+        var telemetry = CAITelemetry::appTelemetry().TrackRequest();
+        CAITelemetry::initCommon(telemetry, caption, src);
+        return telemetry;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>newRequestForForm</Name>
+				<Source><![CDATA[
+    public static CAI.Telemetry.TelemetryWrapper newRequestForForm(FormRun form, ClassDescription caption = '')
+    {
+        var formName = classId2Name(classIdGet(form));
+        return CAITelemetry::newRequestForArgs(form.args(), caption, formName);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>newRequestForObjectRun</Name>
+				<Source><![CDATA[
+    public static CAI.Telemetry.TelemetryWrapper newRequestForObjectRun(ObjectRun obj, ClassDescription caption = '')
+    {
+        return CAITelemetry::newRequestForArgs(obj.args(), caption, classId2Name(classIdGet(obj)));
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>newRequestForArgs</Name>
+				<Source><![CDATA[
+    public static CAI.Telemetry.TelemetryWrapper newRequestForArgs(xArgs args, ClassDescription caption = '', str src = '')
+    {
+        var telemetry = CAITelemetry::newRequest(caption, src);
+        if(args)
+            telemetry
+                .SetProperty('MenuItemName', args.menuItemName())
+                .SetProperty('MenuItemType', enum2Str(args.menuItemType()))
+                .SetProperty('Caller', args.callerName());
+        return telemetry;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>initCommon</Name>
+				<Source><![CDATA[
+    private static void initCommon(CAI.Telemetry.TelemetryWrapper telemetry, str caption, str src)
+    {
+        if(caption)
+            telemetry.SetProperty('Caption', caption);
+        if(src)
+            telemetry.SetProperty('TelemetrySource', src);
+        telemetry
+            .SetProperty('Company', curExt())
+            .SetProperty('Prefix', getPrefix())
+            .SetProperty('EnvironmentId', environmentId);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>trace</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Generates and sends a telemetry trace
+    /// </summary>
+    /// <param name = "exception">Severity</param>
+    /// <param name = "txt">Messag</param>
+    /// <param name = "src">Source object</param>
+    /// <param name = "reference">reference value for context</param>
+    /// <param name = "reference2">reference value for context</param>
+    public static void trace(Exception exception, str txt, str src, str reference = null, str reference2 = null)
+    {
+        Microsoft.ApplicationInsights.DataContracts.SeverityLevel severity;
+        str callStack;
+        switch(exception)
+        {
+            case Exception::Warning:
+            case Exception::DuplicateKeyException:
+                severity = Microsoft.ApplicationInsights.DataContracts.SeverityLevel::Warning;
+                callStack = CAITelemetry::formatStackTrace(xSession::xppCallStack());
+                break;
+            case Exception::Break:
+            case Exception::Info:
+            case Exception::ViewDataSourceValidation:
+                severity = Microsoft.ApplicationInsights.DataContracts.SeverityLevel::Information;
+                break;
+            default:
+                severity = Microsoft.ApplicationInsights.DataContracts.SeverityLevel::Error;
+                callStack = CAITelemetry::formatStackTrace(xSession::xppCallStack());
+                break;
+        }
+        var telemetry = CAITelemetry::appTelemetry().TrackTrace(txt, severity);
+        CAITelemetry::initCommon(telemetry, '', src);
+        if(reference)
+            telemetry.SetProperty('Reference', reference);
+        if(reference2)
+            telemetry.SetProperty('Reference2', reference2);
+        if(callStack)
+            telemetry.SetProperty('CallStack', callStack);
+        telemetry
+            .SetProperty('XppException',enum2str(exception))
+            .Send();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>exception</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Generates and sends a telemetry Exception
+    /// </summary>
+    /// <param name = "_txt">Exception message</param>
+    /// <param name = "_stackTrace">CLR call stack</param>
+    /// <param name = "_xppCallStack">Xpp call stack</param>
+    /// <param name = "src">Source object</param>
+    public static void exception(str _txt, str _stackTrace, str _xppCallStack, str src)
+    {
+        var telemetry = CAITelemetry::appTelemetry().TrackException(_txt, _stackTrace)
+            .SetProperty('CallStack', _stackTrace)
+            .SetProperty('XppCallStack', _xppCallStack);
+        CAITelemetry::initCommon(telemetry, '', src);
+        telemetry.Send();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>formatStackTrace</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Formats the output of xSession::xppCallStack() into a readable, multiline string
+    /// </summary>
+    /// <param name = "callStack">container output from xSession::xppCallStack()</param>
+    /// <returns></returns>
+    public static str formatStackTrace(container callStack)
+    {
+        var stackTxt = '';
+        try
+        {
+            var stackCnt = 1;
+            while (conPeek(callStack, stackCnt))
+            {
+                stackTxt += strFmt('%1: %2 (%3: %4)\n', conPeek(callStack, stackCnt), conPeek(callStack, stackCnt+1), conPeek(callStack, stackCnt+2), conPeek(callStack, stackCnt+3));
+                stackCnt += 4; 
+            }
+        }
+        catch
+        {
+            stackTxt = con2Str(callStack,'\n');
+        }
+        return stackTxt;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>findRegistryEntryForEnvironmentId</Name>
+				<Source><![CDATA[
+    private static OperationalInsightsRegistry findRegistryEntryForEnvironmentId(str _environmentId)
+    {
+        OperationalInsightsEnvMap envMap;
+        OperationalInsightsRegistry registry;
+
+        select firstonly envMap where envMap.EnvironmentId == _environmentId
+            join registry where registry.EnvironmentSelection == envMap.EnvironmentSelection;
+        return registry;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

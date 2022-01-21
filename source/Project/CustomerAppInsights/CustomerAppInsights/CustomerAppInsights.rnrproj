@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <BuildTasksDirectory Condition=" '$(BuildTasksDirectory)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Dynamics\AX</BuildTasksDirectory>
+    <Model>Customer AppInsights</Model>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <OutputPath>bin</OutputPath>
+    <SchemaVersion>2.0</SchemaVersion>
+    <GenerateCrossReferences>True</GenerateCrossReferences>
+    <RunAppCheckerRules>False</RunAppCheckerRules>
+    <LogAppcheckerDiagsAsErrors>False</LogAppcheckerDiagsAsErrors>
+    <ProjectGuid>{1f138656-8cec-43d6-82b3-73ffcbb18f02}</ProjectGuid>
+    <Name>CustomerAppInsights</Name>
+    <RootNamespace>CustomerAppInsights</RootNamespace>
+    <StartupType>Class</StartupType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Configuration>Debug</Configuration>
+    <DBSyncInBuild>True</DBSyncInBuild>
+    <GenerateFormAdaptors>False</GenerateFormAdaptors>
+    <Company>
+    </Company>
+    <Partition>initial</Partition>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
+    <DataEntityUseLabelTextAsFieldName>False</DataEntityUseLabelTextAsFieldName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Classes\" />
+    <Folder Include="Form Extensions\" />
+    <Folder Include="Label Files\" />
+    <Folder Include="Table Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AxClass\CAIClass_FormRun_Extension">
+      <SubType>Content</SubType>
+      <Name>CAIClass_FormRun_Extension</Name>
+      <Link>Classes\CAIClass_FormRun_Extension</Link>
+    </Content>
+    <Content Include="AxClass\CAIClass_Info_Extension">
+      <SubType>Content</SubType>
+      <Name>CAIClass_Info_Extension</Name>
+      <Link>Classes\CAIClass_Info_Extension</Link>
+    </Content>
+    <Content Include="AxClass\CAIClass_RetailRealTimeServiceWrapper_Extension">
+      <SubType>Content</SubType>
+      <Name>CAIClass_RetailRealTimeServiceWrapper_Extension</Name>
+      <Link>Classes\CAIClass_RetailRealTimeServiceWrapper_Extension</Link>
+    </Content>
+    <Content Include="AxClass\CAIClass_RunBaseBatch_Extension">
+      <SubType>Content</SubType>
+      <Name>CAIClass_RunBaseBatch_Extension</Name>
+      <Link>Classes\CAIClass_RunBaseBatch_Extension</Link>
+    </Content>
+    <Content Include="AxClass\CAIClass_SysOperationController_Extension">
+      <SubType>Content</SubType>
+      <Name>CAIClass_SysOperationController_Extension</Name>
+      <Link>Classes\CAIClass_SysOperationController_Extension</Link>
+    </Content>
+    <Content Include="AxClass\CAITable_OperationalInsightsParameters_Extension">
+      <SubType>Content</SubType>
+      <Name>CAITable_OperationalInsightsParameters_Extension</Name>
+      <Link>Classes\CAITable_OperationalInsightsParameters_Extension</Link>
+    </Content>
+    <Content Include="AxClass\CAITelemetry">
+      <SubType>Content</SubType>
+      <Name>CAITelemetry</Name>
+      <Link>Classes\CAITelemetry</Link>
+    </Content>
+    <Content Include="AxFormExtension\OperationalInsightsProvisioningForm.CustomerAppInsights">
+      <SubType>Content</SubType>
+      <Name>OperationalInsightsProvisioningForm.CustomerAppInsights</Name>
+      <Link>Form Extensions\OperationalInsightsProvisioningForm.CustomerAppInsights</Link>
+    </Content>
+    <Content Include="AxLabelFile\CAI_en-US">
+      <SubType>Content</SubType>
+      <Name>CAI_en-US</Name>
+      <Link>Label Files\CAI_en-US</Link>
+    </Content>
+    <Content Include="AxTableExtension\OperationalInsightsParameters.CustomerAppInsights">
+      <SubType>Content</SubType>
+      <Name>OperationalInsightsParameters.CustomerAppInsights</Name>
+      <Link>Table Extensions\OperationalInsightsParameters.CustomerAppInsights</Link>
+    </Content>
+    <Content Include="CAI.en-US.label.txt">
+      <SubType>Content</SubType>
+      <Name>CAI.en-US.label.txt</Name>
+      <DependentUpon>AxLabelFile\CAI_en-US</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CAI.Telemetry\CAI.Telemetry.csproj">
+      <Name>CAI.Telemetry</Name>
+      <Project>{aef0760d-919c-44bb-977d-afa9a992cc05}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
+  <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.targets" />
+</Project>
