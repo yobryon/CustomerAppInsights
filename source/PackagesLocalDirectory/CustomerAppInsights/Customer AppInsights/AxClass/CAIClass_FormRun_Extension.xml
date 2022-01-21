@@ -45,7 +45,7 @@ final class CAIClass_FormRun_Extension
     // this is not allowed by the compiler
     //public void wait(boolean _modal)
     //{
-    //    using(var t = CHTelemetry::newClient().TrackOperation(this.name(), "wait"))
+    //    using(var t = CAITelemetry::newClient().TrackOperation(this.name(), "wait"))
     //    {
     //        next wait(_modal);
     //    }
