@@ -12,12 +12,14 @@ To keep things as simple as possible, this module uses the _Operational Insights
 
 ### Prerequisites
 
-The class library that handles managing the actual AppInsights client requires the NuGet packages for AppInsights and its dependencies be obtained from the online NuGet repo. By default, it seems that VS on dev boxes is configured only to use AX's local package repo. Thus, you will need to add a repository entry to allow VS to fetch the dependencies for this library.
+#### Visual Studio Online NuGet Repository
+The class library that handles managing the AppInsights client requires NuGet packages for AppInsights and its dependencies be obtained from the online NuGet repo. By default, it seems that VS on dev boxes is configured only to use AX's local package repo. Thus, __you will need to add a repository entry to allow VS to fetch the dependencies for this library__.
 
 In VS2019, open NuGet Package Manager Settings (Tools | NuGet Package Manager | Package Manager Settings), navigate to Package Sources, and add an entry for nuget.org as follows:
 Name: nuget.org
 Source: https://api.nuget.org/v3/index.json
 
+#### Application Insights Instance
 You will also need an Application Insights instance to be setup and ready to receive telemetry. Based on the design of the Operational Insights module, you may setup different app insights instances to segment Dev, Test, and Prod from one another. At minimum, you will need at least once instance to be able to receive telemetry.
 
 ### Installing
