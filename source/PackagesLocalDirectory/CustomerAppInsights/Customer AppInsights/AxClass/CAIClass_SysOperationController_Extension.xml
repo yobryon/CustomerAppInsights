@@ -14,7 +14,10 @@ final class CAIClass_SysOperationController_Extension
 				<Source><![CDATA[
     public void runOperation()
     {
-        using(var t = CAITelemetry::newRequestForArgs(this.args, this.caption(),classStr(SysOperationController)).StartOperation(strFmt('%1.%2',classId2Name(classIdGet(this)), "runOperation")))
+        using(var t = CAITelemetry::newRequestForArgs(this.args, this.caption(), classStr(SysOperationController)).StartOperation(
+            strFmt('%1.%2',
+                classId2Name(classIdGet(this)), 
+                funcName())))
         {
             next runOperation();
         }

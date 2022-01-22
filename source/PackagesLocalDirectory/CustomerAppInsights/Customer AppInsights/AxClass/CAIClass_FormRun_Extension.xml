@@ -20,7 +20,10 @@ final class CAIClass_FormRun_Extension
     /// </summary>
     public void init()
     {
-        using(var t = CAITelemetry::newRequestForForm(this, this.name()).StartOperation(strFmt('%1.%2',this.args().name(),"init")))
+        using(var t = CAITelemetry::newRequestForForm(this, this.name()).StartOperation(
+            strFmt('%1.%2',
+                this.args().name(),
+                funcName())))
         {
             next init();
         }
@@ -36,7 +39,10 @@ final class CAIClass_FormRun_Extension
     /// </summary>
     public void run()
     {
-        using(var t = CAITelemetry::newRequestForForm(this, this.name()).StartOperation(strFmt('%1.%2',this.args().name(),"run")))
+        using(var t = CAITelemetry::newRequestForForm(this, this.name()).StartOperation(
+            strFmt('%1.%2',
+                this.args().name(),
+                funcName())))
         {
             next run();
         }
