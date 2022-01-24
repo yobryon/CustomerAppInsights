@@ -13,7 +13,7 @@ public final class CAITelemetry
     //static TelemetryConfiguration gConfiguration; // = Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration::CreateDefault();
     private RecVersion gParameterRecVersion = 0;
     private RecVersion gRegistryRecVersion = 0;
-    private static str environmentId = System.Configuration.ConfigurationManager::AppSettings.Get("LCS.EnvironmentId");
+    private static str environmentId = System.Configuration.ConfigurationManager::AppSettings.Get('LCS.EnvironmentId');
     
     
 }
@@ -126,11 +126,13 @@ public final class CAITelemetry
     public static CAI.Telemetry.TelemetryWrapper newRequestForArgs(xArgs args, ClassDescription caption = '', str src = '')
     {
         var telemetry = CAITelemetry::newRequest(caption, src);
-        if(args)
+        if (args)
+        {
             telemetry
                 .SetProperty('MenuItemName', args.menuItemName())
                 .SetProperty('MenuItemType', enum2Str(args.menuItemType()))
                 .SetProperty('Caller', args.callerName());
+        }
         return telemetry;
     }
 
@@ -141,10 +143,14 @@ public final class CAITelemetry
 				<Source><![CDATA[
     private static void initCommon(CAI.Telemetry.TelemetryWrapper telemetry, str caption, str src)
     {
-        if(caption)
+        if (caption)
+        {
             telemetry.SetProperty('Caption', caption);
-        if(src)
+        }
+        if (src)
+        {
             telemetry.SetProperty('TelemetrySource', src);
+        }
         telemetry
             .SetProperty('Company', curExt())
             .SetProperty('Prefix', getPrefix())
@@ -187,12 +193,18 @@ public final class CAITelemetry
         }
         var telemetry = CAITelemetry::appTelemetry().TrackTrace(txt, severity);
         CAITelemetry::initCommon(telemetry, '', src);
-        if(reference)
+        if (reference)
+        {
             telemetry.SetProperty('Reference', reference);
-        if(reference2)
+        }
+        if (reference2)
+        {
             telemetry.SetProperty('Reference2', reference2);
-        if(callStack)
+        }
+        if (callStack)
+        {
             telemetry.SetProperty('CallStack', callStack);
+        }
         telemetry
             .SetProperty('XppException',enum2str(exception))
             .Send();
@@ -228,7 +240,7 @@ public final class CAITelemetry
     /// Formats the output of xSession::xppCallStack() into a readable, multiline string
     /// </summary>
     /// <param name = "callStack">container output from xSession::xppCallStack()</param>
-    /// <returns></returns>
+    /// <returns>A string containing the stack trace or an empty string</returns>
     public static str formatStackTrace(container callStack)
     {
         var stackTxt = '';

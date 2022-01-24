@@ -13,10 +13,11 @@ public final class CAITable_OperationalInsightsParameters_Extension
 				<Name>caifind</Name>
 				<Source><![CDATA[
     /// <summary>
-    /// Find method for table. This can be removed/refactored if MSFT ever adds a find method to the table itself.
+    /// Find method for table.
     /// </summary>
-    /// <param name = "_forUpdate"></param>
-    /// <returns></returns>
+    /// <param name = "_forUpdate">Determines if the record should be selected for update.</param>
+    /// <returns>A <c>OperationalInsightsParameters</c> record or null</returns>
+    /// <remarks>This can be removed/refactored if MSFT ever adds a find method to the table itself.</remarks>
     public static OperationalInsightsParameters caifind(boolean _forUpdate = false)
     {
         OperationalInsightsParameters operationalInsightsParameters;
