@@ -13,7 +13,7 @@ public final class CAITelemetry
     //static TelemetryConfiguration gConfiguration; // = Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration::CreateDefault();
     private RecVersion gParameterRecVersion = 0;
     private RecVersion gRegistryRecVersion = 0;
-    private static str environmentId = System.Configuration.ConfigurationManager::AppSettings.Get('LCS.EnvironmentId');
+    private static str environmentId = CAITelemetry::getEnvironmentId();
     
     
 }
@@ -273,6 +273,24 @@ public final class CAITelemetry
         select firstonly envMap where envMap.EnvironmentId == _environmentId
             join registry where registry.EnvironmentSelection == envMap.EnvironmentSelection;
         return registry;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getEnvironmentId</Name>
+				<Source><![CDATA[
+    private static str getEnvironmentId()
+    {
+        str localEnvironmentId;
+        localEnvironmentId = System.Configuration.ConfigurationManager::AppSettings
+            .Get('LCS.EnvironmentId');
+        if (localEnvironmentId == null
+            || localEnvironmentId == naStr())
+        {
+            localEnvironmentId = new Session().AOSName();
+        }
+        return localEnvironmentId;
     }
 
 ]]></Source>
