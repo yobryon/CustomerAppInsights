@@ -34,7 +34,7 @@ As of this writing, I don't see a docs page yet for Operational Insights, so I'l
 
 ### Configuring a dev instance
 1. Navigate to the _Operational insights_ configuration form (System Administration | Setup | Operational insights)
-2. Find the Environment Id GUID for your dev box (you can find this in the LCS details page for your cloud-hosted dev box and tier 2+ environments)
+2. Find the Environment Id for your dev box. For cloud-hosted dev boxes and tier 2+ environments, you can find this in the LCS details page in the form of a GUID. For local vhd dev boxes, use the computer name of the vm.
 3. On the _Environments_ tab, paste in the Environment Id from #2, and set (or leave) the Environment Mode to _Development_ (assuming this is a dev box).
 4. On the _Application Insights registry_ tab, hit ALT+N if necessary to add a new record, and provide the Instrumentation Key from your app insights instance. Leave or set the Environment Mode to Development (again, assuming you're doing this for your dev box).
 5. On the _Configure_ tab, enable the toggle for _Capture custom events_.
